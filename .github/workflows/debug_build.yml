@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - master
+  schedule:
+    - cron: "0 1 * * 0"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package_variant: [ apt-android-7, apt-android-5 ]
+        package_variant: [ apt-android-7 ]
 
     steps:
       - name: Clone repository
