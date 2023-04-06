@@ -177,6 +177,18 @@ final class TermuxInstaller {
                                         return;
                                     }
                                 }
+                            } else if (zipEntry.getName().equals("MODES.txt")) {
+                                BufferedReader modesReader = new BufferedReader(new InputStreamReader(zipInput));
+                                String line;
+                                while ((line = modesReader.readLine()) != null) {
+                                    String[] parts = line.split("←");
+                                    if (parts.length != 2)
+                                        throw new RuntimeException("Malformed mode line: " + line);
+                                    Integer Mode = Integer.valueOf(parts[0]);
+                                    String Path = TERMUX_STAGING_PREFIX_DIR_PATH + "/" + parts[1];
+
+                                    Os.chmod(Path, Mode);
+                                }
                             } else {
                                 String zipEntryName = zipEntry.getName();
                                 File targetFile = new File(TERMUX_STAGING_PREFIX_DIR_PATH, zipEntryName);
@@ -194,11 +206,11 @@ final class TermuxInstaller {
                                         while ((readBytes = zipInput.read(buffer)) != -1)
                                             outStream.write(buffer, 0, readBytes);
                                     }
-                                    if (zipEntryName.startsWith("bin/") || zipEntryName.startsWith("libexec") ||
-                                        zipEntryName.startsWith("lib/apt/apt-helper") || zipEntryName.startsWith("lib/apt/methods")) {
-                                        //noinspection OctalInteger
-                                        Os.chmod(targetFile.getAbsolutePath(), 0700);
-                                    }
+                                    // if (zipEntryName.startsWith("bin/") || zipEntryName.startsWith("libexec") ||
+                                    //     zipEntryName.startsWith("lib/apt/apt-helper") || zipEntryName.startsWith("lib/apt/methods")) {
+                                    //     //noinspection OctalInteger
+                                    //     Os.chmod(targetFile.getAbsolutePath(), 0700);
+                                    // }
                                 }
                             }
                         }
