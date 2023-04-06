@@ -213,11 +213,21 @@ clean {
 task downloadBootstraps() {
     doLast {
         def packageVariant = project.ext.packageVariant
+        def checksumList = new URL("https://github.com/kawanakaiku/termux-app/releases/download/bootstraps/CHECKSUMS-sha256.txt").getText().tokenize("\n")
         if (packageVariant == "apt-android-7") {
-            downloadBootstrap("aarch64", "557a3ff77bd63ef3fe1ca5df18d7a35a346f8eb7a0c616b2ce858ea09549bb14", "")
-            downloadBootstrap("arm", "2eb6ebadbd743375ce7bfd10355dca1626b7bf9ef895736a200d7072731f0c40", "")
-            downloadBootstrap("i686", "cb92ac8e3c2398401287e765128680d103734d0960e33fd07ab0d48c8b4bf634", "")
-            downloadBootstrap("x86_64", "c0c42249512af857ea5722c946d796f49da511c6f017767cb0fa93fd84d917b0", "")
+            def version = ""
+            def checksumMap = [:]
+            for(line in checksumList){
+                def (checksum, filename) = line.tokenize("  ")
+                def matcher = filename =~ /bootstrap-(.*)\.zip/
+                matcher.find()
+                def arch = matcher.group(1)
+                checksumMap.put(arch, checksum)
+            }
+            downloadBootstrap("aarch64", checksumMap["aarch64"], version)
+            downloadBootstrap("arm", checksumMap["arm"], version)
+            downloadBootstrap("i686", checksumMap["i686"], version)
+            downloadBootstrap("x86_64", checksumMap["x86_64"], version)
         } else if (packageVariant == "apt-android-5") {
             def version = "2022.04.28-r6" + "+" + packageVariant
             downloadBootstrap("aarch64", "913609d439415c828c5640be1b0561467e539cb1c7080662decaaca2fb4820e7", version)
