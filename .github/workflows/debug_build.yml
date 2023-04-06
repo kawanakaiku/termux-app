@@ -29,6 +29,15 @@ jobs:
           PACKAGE_VARIANT: ${{ matrix.package_variant }}
         run: |
           exit_on_error() { echo "$1"; exit 1; }
+          
+          echo "Replacing TERMUX_PACKAGE_NAME"
+          sed -i 's|TERMUX_PACKAGE_NAME = "com.termux"|TERMUX_PACKAGE_NAME = "com.termux.glibc"|' termux-shared/src/main/java/com/termux/shared/termux/TermuxConstants.java
+          sed -i 's|applicationId "com.termux"|applicationId "com.termux.glibc"|' app/build.gradle
+          sed -i 's|manifestPlaceholders.TERMUX_PACKAGE_NAME = "com.termux"|manifestPlaceholders.TERMUX_PACKAGE_NAME = "com.termux.glibc"|' app/build.gradle
+          sed -i 's|manifestPlaceholders.TERMUX_APP_NAME = "Termux"|manifestPlaceholders.TERMUX_APP_NAME = "Termux-glibc"|' app/build.gradle
+          sed -i 's|ENTITY TERMUX_PACKAGE_NAME "com.termux"|ENTITY TERMUX_PACKAGE_NAME "com.termux.glibc"|' app/src/main/res/values/strings.xml
+          sed -i 's|ENTITY TERMUX_APP_NAME "Termux"|ENTITY TERMUX_APP_NAME "Termux-glibc"|' app/src/main/res/values/strings.xml
+          sed -i 's|com.termux.app|com.termux.glibc.app|' app/src/main/res/xml/*_preferences.xml
 
           echo "Setting vars"
 
