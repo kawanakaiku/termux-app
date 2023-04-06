@@ -27,10 +27,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -223,20 +219,6 @@ final class TermuxInstaller {
                         throw new RuntimeException("No SYMLINKS.txt encountered");
                     for (Pair<String, String> symlink : symlinks) {
                         Os.symlink(symlink.first, symlink.second);
-                    }
-                    
-                    try {
-                        File file = new File("Os.link1.txt");
-                        file.createNewFile();
-                        Os.link("Os.link1.txt", "Os.link2.txt");
-                    } catch(Exception e) {
-                    }
-                    
-                    try {
-                        File file = new File("File.createLink1.txt");
-                        file.createNewFile();
-                        File.createLink("File.createLink2.txt", "File.createLink1.txt");
-                    } catch(Exception e) {
                     }
 
                     Logger.logInfo(LOG_TAG, "Moving termux prefix staging to prefix directory.");
