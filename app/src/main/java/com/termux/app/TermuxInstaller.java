@@ -230,24 +230,6 @@ final class TermuxInstaller {
                         file.createNewFile();
                         Os.link("Os.link1.txt", "Os.link2.txt");
                     } catch(Exception e) {
-                        e.printStackTrace(new PrintWriter(new Writer() {
-                        private final StringBuffer buffer = new StringBuffer();
-
-                        @Override
-                        public void write(char[] cs, int offset, int length) {
-                           buffer.append(cs, offset, length);
-                        }
-
-                        @Override
-                        public void flush() {
-                           Log.e("Exception", buffer.toString());
-                           buffer.setLength(0);
-                        }
-
-                        @Override
-                        public void close() {
-                        }
-                      }, true));
                     }
                     
                     try {
@@ -255,24 +237,6 @@ final class TermuxInstaller {
                         file.createNewFile();
                         File.createLink("File.createLink2.txt", "File.createLink1.txt");
                     } catch(Exception e) {
-                        e.printStackTrace(new PrintWriter(new Writer() {
-                        private final StringBuffer buffer = new StringBuffer();
-
-                        @Override
-                        public void write(char[] cs, int offset, int length) {
-                           buffer.append(cs, offset, length);
-                        }
-
-                        @Override
-                        public void flush() {
-                           Log.e("Exception", buffer.toString());
-                           buffer.setLength(0);
-                        }
-
-                        @Override
-                        public void close() {
-                        }
-                      }, true));
                     }
 
                     Logger.logInfo(LOG_TAG, "Moving termux prefix staging to prefix directory.");
