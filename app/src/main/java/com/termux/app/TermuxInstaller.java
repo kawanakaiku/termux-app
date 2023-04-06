@@ -184,7 +184,7 @@ final class TermuxInstaller {
                                     String[] parts = line.split("←");
                                     if (parts.length != 2)
                                         throw new RuntimeException("Malformed mode line: " + line);
-                                    Integer Mode = Integer.valueOf(parts[0]);
+                                    Integer Mode = Integer.parseInt(parts[0]);
                                     String Path = TERMUX_STAGING_PREFIX_DIR_PATH + "/" + parts[1];
 
                                     Os.chmod(Path, Mode);
