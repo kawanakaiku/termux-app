@@ -187,7 +187,7 @@ final class TermuxInstaller {
                                     Integer Mode = Integer.parseInt(parts[0]);
                                     String Path = TERMUX_STAGING_PREFIX_DIR_PATH + "/" + parts[1];
 
-                                    Log.i("MODES.txt", Mode + " " + Path)
+                                    Log.i("MODES.txt", Mode + " " + Path);
                                     Os.chmod(Path, Mode);
                                 }
                             } else {
