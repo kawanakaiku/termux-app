@@ -7,7 +7,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 import android.system.Os;
-import android.util.Log;
 import android.util.Pair;
 import android.view.WindowManager;
 
@@ -185,10 +184,9 @@ final class TermuxInstaller {
                                     String[] parts = line.split("←");
                                     if (parts.length != 2)
                                         throw new RuntimeException("Malformed mode line: " + line);
-                                    Integer Mode = Integer.parseInt(parts[0]);
+                                    int Mode = Integer.parseInt(parts[0], 8);
                                     String Path = TERMUX_STAGING_PREFIX_DIR_PATH + "/" + parts[1];
 
-                                    Log.i("MODES.txt", Mode + " " + Path);
                                     Os.chmod(Path, Mode);
                                 }
                             } else {
