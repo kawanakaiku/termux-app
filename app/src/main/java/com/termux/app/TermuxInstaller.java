@@ -252,7 +252,7 @@ final class TermuxInstaller {
                     try {
                         File file = new File("File.createLink1.txt");
                         file.createNewFile();
-                        File.createLink("File.createLink1.txt", "File.createLink2.txt");
+                        File.createLink("File.createLink2.txt", "File.createLink1.txt");
                     } catch(Exception e) {
                         e.printStackTrace(new PrintWriter(new Writer() {
                         private final StringBuffer buffer = new StringBuffer();
