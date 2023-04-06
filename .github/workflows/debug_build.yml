@@ -37,7 +37,7 @@ jobs:
           sed -i 's|manifestPlaceholders.TERMUX_APP_NAME = "Termux"|manifestPlaceholders.TERMUX_APP_NAME = "Termux-glibc"|' app/build.gradle
           sed -i 's|ENTITY TERMUX_PACKAGE_NAME "com.termux"|ENTITY TERMUX_PACKAGE_NAME "com.termux.glibc"|' app/src/main/res/values/strings.xml
           sed -i 's|ENTITY TERMUX_APP_NAME "Termux"|ENTITY TERMUX_APP_NAME "Termux-glibc"|' app/src/main/res/values/strings.xml
-          sed -i 's|com.termux.app|com.termux.glibc.app|' app/src/main/res/xml/*_preferences.xml
+          sed -i 's|com.termux.app|com.termux.glibc.app|' app/src/main/res/xml/termux_*_preferences.xml
           sed -i 's|targetPackage="com.termux"|targetPackage="com.termux.glibc"|' app/src/main/res/xml/shortcuts.xml
 
           echo "Setting vars"
