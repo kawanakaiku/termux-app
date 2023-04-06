@@ -182,7 +182,7 @@ def downloadBootstrap(String arch, String expectedChecksum, String version) {
         }
     }
 
-    def remoteUrl = "https://github.com/termux/termux-packages/releases/download/bootstrap-" + version + "/bootstrap-" + arch + ".zip"
+    def remoteUrl = "https://github.com/kawanakaiku/termux-app/releases/download/bootstraps" + "/bootstrap-" + arch + ".zip"
     logger.quiet("Downloading " + remoteUrl + " ...")
 
     file.parentFile.mkdirs()
@@ -214,23 +214,10 @@ task downloadBootstraps() {
     doLast {
         def packageVariant = project.ext.packageVariant
         if (packageVariant == "apt-android-7") {
-            def jsonText = new URL("https://api.github.com/repos/termux/termux-packages/releases/latest").getText()
-            def jsonParsed = new groovy.json.JsonSlurper().parseText(jsonText)
-            def tag_name = jsonParsed.tag_name
-            def version = tag_name.drop("bootstrap-".length())
-            def checksumList = new URL("https://github.com/termux/termux-packages/releases/download/" + tag_name + "/CHECKSUMS-sha256.txt").getText().tokenize("\n")
-            def checksumMap = [:]
-            for(line in checksumList){
-                def (filename, checksum) = line.tokenize("\t")
-                def matcher = filename =~ /bootstrap-(.*)\.zip/
-                matcher.find()
-                def arch = matcher.group(1)
-                checksumMap.put(arch, checksum)
-            }
-            downloadBootstrap("aarch64", checksumMap["aarch64"], version)
-            downloadBootstrap("arm", checksumMap["arm"], version)
-            downloadBootstrap("i686", checksumMap["i686"], version)
-            downloadBootstrap("x86_64", checksumMap["x86_64"], version)
+            downloadBootstrap("aarch64", "7e91109ddba619b0ed07c2af52fb60463a90bf5ab848ec28fbe13e3fb9ebcce6", "")
+            downloadBootstrap("arm", "f34504e15b4d556a96ce19b4f46844f78f86b001afff5a49464e26c227a65d39", "")
+            downloadBootstrap("i686", "979aac2348cf4f4dff06a35a56b5daf1cd58be794d8dc646ae22dec1de30bfdb", "")
+            downloadBootstrap("x86_64", "7b159cef7a5e08cbf860e3c8cac9bea55e7f854a49df01dce0c2280ee129b69e", "")
         } else if (packageVariant == "apt-android-5") {
             def version = "2022.04.28-r6" + "+" + packageVariant
             downloadBootstrap("aarch64", "913609d439415c828c5640be1b0561467e539cb1c7080662decaaca2fb4820e7", version)
