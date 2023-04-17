@@ -40,6 +40,8 @@ jobs:
           sed -i 's|com.termux.app|com.termux.glibc.app|' app/src/main/res/xml/termux_*_preferences.xml
           sed -i 's|targetPackage="com.termux"|targetPackage="com.termux.glibc"|' app/src/main/res/xml/shortcuts.xml
           sed -i 's|"com.termux.app.failsafe_session"|"com.termux.glibc.app.failsafe_session"|' app/src/main/res/xml/shortcuts.xml
+          
+          sed -i 's|"en_US.UTF-8"|"C"|' termux-shared/src/main/java/com/termux/shared/shell/command/environment/AndroidShellEnvironment.java
 
           echo "Setting vars"
 
